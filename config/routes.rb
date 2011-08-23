@@ -1,4 +1,6 @@
 RubyS::Application.routes.draw do
+  resources :groups
+
   resources :roles
 
   # The priority is based upon order of creation:

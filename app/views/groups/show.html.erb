@@ -7,7 +7,13 @@
 
 <p>
   <b>Roles:</b>
-  <%= @group.roles %>
+
+
+    <% @group.roles.each do |role|%>
+    	<%= role.name %>,
+    <% end %>
+    
+
 </p>
 
 

@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :roles %><br />
-    <%= collection_select(:group, :role_ids, Role.all, :id, :name ) %>
+    <%= collection_select(:group, :role_ids, Role.all, :id, :name, options ={},  html_options = {:class =>"my_class", :multiple=>"multiple", :size=>"5"} ) %>
   </div>
   <div class="actions">
     <%= f.submit %>

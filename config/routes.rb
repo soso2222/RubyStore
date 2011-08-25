@@ -2,6 +2,9 @@ RubyS::Application.routes.draw do
   resources :groups
 
   resources :roles
+  
+  resources :permissions
+  #match "permissions" => "permissions#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

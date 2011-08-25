@@ -1,0 +1,3 @@
+class PermissionsController < ApplicationController
+
+end

@@ -1,0 +1,30 @@
+<%
+classnames = ['Groups', 'Roles']
+classnames.each do |classname|
+	puts "dfgsdg"
+	#puts classname
+	
+a= Kernel.const_get(classname+'Controller').instance_methods(false)
+
+
+		a.each do |method| 
+			
+		p = Permission.new
+		p.controller = classname
+		p.method = method
+		p.role_ids = []
+		
+
+		s = Permission.all(:conditions=>{:controller=>classname, :method=>p.method})
+		#s = Permission.all
+		%>
+		
+		<%= s %>
+		<%
+		
+		#p.save
+		
+		end 
+end %>
+	
+	

@@ -1,30 +1,51 @@
+<%=@custompermissions%>
+<table border="1">
+  <tr><th>&nbsp;</th><th>&nbsp;</th>
 <%
-classnames = ['Groups', 'Roles']
-classnames.each do |classname|
-	puts "dfgsdg"
-	#puts classname
-	
-a= Kernel.const_get(classname+'Controller').instance_methods(false)
 
+@roles.each do |role|
+%>
+  <th>
+  <%=role.name%>
+  </th>
+<%
+end
+%>
+  </tr>
+  
+<%
+  @custompermissions.each do |permission|
+  	%>
+  		<tr>
+  			<th rowspan="<%=permission.methods.size %>">
+  				<%=permission.controller %>
+  			</th>
+  		</tr>
+<%
+  		(permission.methods.size-1).times do |i|
+          	%>
+          	<tr><th><%=permission.methods[i]%></th>
+          		
+          		<%
+	          		@roles.each do |role|
+					%>
+					  <td>
+					  <%= check_box("perm", "validated", {:onclick=>"ajaxUpdateControllerMethodPermission('controller', 'method', 'value');"}) %>
+					  </td>
+					<%
+					end
+          		%>
 
-		a.each do |method| 
-			
-		p = Permission.new
-		p.controller = classname
-		p.method = method
-		p.role_ids = []
-		
+          		</tr>
+          	<%
+        end
 
-		s = Permission.all(:conditions=>{:controller=>classname, :method=>p.method})
-		#s = Permission.all
-		%>
-		
-		<%= s %>
-		<%
-		
-		#p.save
-		
-		end 
-end %>
-	
-	
+  				
+  
+  end
+  
+%>
+    
+  
+</table>
+

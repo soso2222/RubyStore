@@ -3,7 +3,9 @@ RubyS::Application.routes.draw do
 
   resources :roles
   
+  match 'permissions/update' => 'permissions#update', :via => :post
   resources :permissions
+  
   #match "permissions" => "permissions#index"
 
   # The priority is based upon order of creation:

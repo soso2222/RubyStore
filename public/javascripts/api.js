@@ -1,13 +1,15 @@
-function ajaxUpdateControllerMethodPermission(controller, method, value){
-	alert("DEBUG");
+function ajaxUpdateControllerMethodPermission(roleId, methodName, controllerName, value){
 	
-	/*
 	$.ajax({
-		url: "test.html",
-		context: document.body,
-		success: function(){
-			
+		url: "/permissions/update",
+		type: "POST",
+		dataType: "html",
+		data: {role:roleId, methodName:methodName, controllerName:controllerName, value:value},
+		success: function(data){
+			alert(data);
+		},
+		error: function (xhr,err,e) {
+		  	alert(e);
 		}
 	});
-	*/
 }

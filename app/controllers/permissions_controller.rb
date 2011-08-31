@@ -29,6 +29,25 @@ class PermissionsController < ApplicationController
     end
   end
   
+  # POST /permissions/update
+  def update
+    @permissions = Permission.first(:conditions=>{:controller=>params[:controllerName], :method=>params[:methodName]})
+    
+    # Make sure that there is no such role in the list;
+    @permissions.role_ids.delete_if{ |roleId| roleId == params[:role]}
+    
+    # Add the role only ...
+    if params[:value] == "true"
+        @permissions.role_ids << params[:role] 
+    end
+    
+    @permissions.save
+    
+    respond_to do |format|
+      format.json { render :json => '{"result":' + @permissions.role_ids.to_json + '}' }
+    end
+  end
+  
   private
   def exist(permission, list)
     list.each do |custom_permission|
@@ -53,7 +72,7 @@ class PermissionsController < ApplicationController
     classnames = ['GroupsController','RolesController','PermissionsController']
     classnames.each do |classname|
     
-    a= Kernel.const_get(classname).instance_methods(false)
+    a= Kernel.const_get(classname).public_instance_methods(false)
     #a= classname.instance_methods(false)
   
     a.each do |method| 
@@ -77,6 +96,5 @@ class PermissionsController < ApplicationController
     end
     
   end
-
 
 end

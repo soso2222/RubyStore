@@ -1,51 +1,44 @@
-<%=@custompermissions%>
 <table border="1">
-  <tr><th>&nbsp;</th><th>&nbsp;</th>
+ <tr><th colspan="2">&nbsp;</th>
 <%
 
 @roles.each do |role|
 %>
-  <th>
-  <%=role.name%>
-  </th>
+ <th>
+ <%=role.name%>
+ </th>
 <%
 end
 %>
-  </tr>
-  
+ </tr>
+ 
 <%
-  @custompermissions.each do |permission|
-  	%>
-  		<tr>
-  			<th rowspan="<%=permission.methods.size %>">
-  				<%=permission.controller %>
-  			</th>
-  		</tr>
-<%
-  		(permission.methods.size-1).times do |i|
-          	%>
-          	<tr><th><%=permission.methods[i]%></th>
-          		
-          		<%
-	          		@roles.each do |role|
-					%>
-					  <td>
-					  <%= check_box("perm", "validated", {:onclick=>"ajaxUpdateControllerMethodPermission('controller', 'method', 'value');"}) %>
-					  </td>
-					<%
-					end
-          		%>
-
-          		</tr>
-          	<%
-        end
-
-  				
-  
-  end
-  
+ @custompermissions.each do |permission|
 %>
-    
-  
-</table>
+       <tr>
+               <th rowspan="<%=permission.methods.size+1 %>">
+                       <%=permission.controller %>
+                 </th>
+         </tr>
 
+       <%
+         (permission.methods.size).times do |i|
+       %>
+               <tr><th><%=permission.methods[i]%></th>
+               <%
+               @roles.each do |role|
+               %>
+                       <td>
+                               <%= check_box("perm", "validated", {:onclick=>"ajaxUpdateControllerMethodPermission('" + role.id + "', '" + permission.methods[i] + "', '" + permission.controller + "', this.checked);"}) %>
+                       </td>
+                       <%
+               end
+       %>
+               </tr>
+       <%
+       end
+ end
+%>
+   
+ 
+</table>

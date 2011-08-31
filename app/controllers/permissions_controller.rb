@@ -64,9 +64,6 @@ class PermissionsController < ApplicationController
     
     
     #ApplicationController.send(:subclasses).each do |controller_name|
-    
-
-    
     #classname = controller_name
     
     classnames = ['GroupsController','RolesController','PermissionsController']

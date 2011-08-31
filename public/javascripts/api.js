@@ -3,10 +3,10 @@ function ajaxUpdateControllerMethodPermission(roleId, methodName, controllerName
 	$.ajax({
 		url: "/permissions/update",
 		type: "POST",
-		dataType: "html",
+		dataType: "json",
 		data: {role:roleId, methodName:methodName, controllerName:controllerName, value:value},
 		success: function(data){
-			alert(data);
+			//alert(data);
 		},
 		error: function (xhr,err,e) {
 		  	alert(e);

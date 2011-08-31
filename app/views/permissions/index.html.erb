@@ -27,9 +27,14 @@ end
                <tr><th><%=permission.methods[i]%></th>
                <%
                @roles.each do |role|
+               @permissions = Permission.first(:conditions=>{:controller=>permission.controller, :method=>permission.methods[i]})
+
+               record_check = @permissions.role_ids.include?(role.id.to_s)
+               
+              
                %>
                        <td>
-                               <%= check_box("perm", "validated", {:onclick=>"ajaxUpdateControllerMethodPermission('" + role.id + "', '" + permission.methods[i] + "', '" + permission.controller + "', this.checked);"}) %>
+                               <%= check_box("perm", "validated", {:onclick=>"ajaxUpdateControllerMethodPermission('" + role.id + "', '" + permission.methods[i] + "', '" + permission.controller + "', this.checked);", :checked=>record_check}) %>
                        </td>
                        <%
                end

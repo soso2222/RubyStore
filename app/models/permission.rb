@@ -1,9 +1,8 @@
 class Permission
-  include MongoMapper::Document
+    include MongoMapper::Document
 
-  key :controller, String
-  key :method, String
-  key :role_ids, Array
-  many :roles, :in => :role_ids
-
+    key :controller, String
+    key :method, String
+    key :role_ids, Array
+    many :roles, :in => :role_ids
 end

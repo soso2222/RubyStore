@@ -1,49 +1,23 @@
-<table border="1">
- <tr><th colspan="2">&nbsp;</th>
-<%
-
-@roles.each do |role|
-%>
- <th>
- <%=role.name%>
- </th>
-<%
-end
-%>
- </tr>
- 
-<%
- @custompermissions.each do |permission|
-%>
-       <tr>
-               <th rowspan="<%=permission.methods.size+1 %>">
-                       <%=permission.controller %>
-                 </th>
-         </tr>
-
-       <%
-         (permission.methods.size).times do |i|
-       %>
-               <tr><th><%=permission.methods[i]%></th>
-               <%
-               @roles.each do |role|
-               @permissions = Permission.first(:conditions=>{:controller=>permission.controller, :method=>permission.methods[i]})
-
-               record_check = @permissions.role_ids.include?(role.id.to_s)
-               
-              
-               %>
-                       <td>
-                               <%= check_box("perm", "validated", {:onclick=>"ajaxUpdateControllerMethodPermission('" + role.id + "', '" + permission.methods[i] + "', '" + permission.controller + "', this.checked);", :checked=>record_check}) %>
-                       </td>
-                       <%
-               end
-       %>
-               </tr>
-       <%
-       end
- end
-%>
-   
- 
+<table class="permissionTable">
+	<tr>
+		<th class="invisible" colspan="2">&nbsp;</th>
+		<% @roles.each do |role| %>
+			<th><%= role.name %></th>
+		<% end %>
+	</tr>
+	<% @custom_permissions.each do |permission| %>
+		<tr>
+			<th rowspan="<%= permission.methods.size+1 %>"><%= permission.controller %></th>
+		</tr>
+		<% (permission.methods.size).times do |i| %>
+			<tr>
+				<th><%= permission.methods[i] %></th>
+				<% @roles.each do |role|
+    				@permission = Permission.first(:conditions=>{:controller=>permission.controller, :method=>permission.methods[i]})
+    				record_check = @permission.role_ids.include?(role.id.to_s) %>
+           			<td><%= check_box("perm", "validated", {:onclick=>"ajaxUpdateControllerMethodPermission('" + role.id + "', '" + permission.methods[i] + "', '" + permission.controller + "', this.checked);", :checked=>record_check}) %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	<% end %>
 </table>

@@ -1,4 +1,3 @@
-
 class CustomPermissions
-       attr_accessor :controller, :methods
+    attr_accessor :controller, :methods
 end
